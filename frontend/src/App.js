@@ -56,10 +56,10 @@ function App() {
           algorithm: darkModeEnabled ? theme.darkAlgorithm : theme.defaultAlgorithm,
           token: customTheme.token
         }}
-        prefixCls="frq"
-        iconPrefixCls='frq'
+        prefixCls="muqeet"
+        iconPrefixCls='muqeet'
       >
-        <LoadingBar ref={ref} color={token.colorPrimary} height={5}/>
+        <LoadingBar ref={ref} height={3} />
 
         <RoutesConfig />
       </ConfigProvider>

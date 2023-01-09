@@ -2,7 +2,7 @@ import { Button, Col, message, Popconfirm, Row, Space, Table, Tag } from 'antd'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import UsersService from '../../../services/Users.service'
+import UsersService from 'services/Users.service'
 import { EditFilled, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers } from 'redux/features/usersSlice'
@@ -40,7 +40,7 @@ const Users = () => {
     useEffect(() => {
         dispatch(fetchUsers())
 
-    }, [])
+    }, [dispatch])
 
     const handleTableChange = (pagination, filters, sorter) => {
         // setTableParams({
@@ -162,9 +162,9 @@ const Users = () => {
                 dataSource={users_list}
                 scroll={{
                     x: 1600,
-                    y: "70vh"
+                    // y: "70vh"
                 }}
-                bordered={true}
+                // bordered={true}
                 rowKey="id"
                 size='small'
                 pagination={{

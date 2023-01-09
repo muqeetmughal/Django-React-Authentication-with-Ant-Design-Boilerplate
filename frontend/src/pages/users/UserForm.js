@@ -1,8 +1,8 @@
 import { Button, Col, Form, Input, message, Row, Select, Switch } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UsersService from '../../../services/Users.service';
-import ClientsService from '../../../services/Clients.service';
+import UsersService from 'services/Users.service';
+import ClientsService from 'services/Clients.service';
 const { Option } = Select;
 const layout = {
     // labelCol: {

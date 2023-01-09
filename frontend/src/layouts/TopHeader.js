@@ -8,12 +8,12 @@ import {
     BellOutlined
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import SettingsDrawer from '../SettingsDrawer';
-import AuthService from '../../services/Auth.service';
-import { toggleSidebar } from '../../redux/features/themeSlice';
-import { logOut } from '../../redux/features/authSlice';
+import SettingsDrawer from '../components/SettingsDrawer';
+import AuthService from '../services/Auth.service';
+import { toggleSidebar } from '../redux/features/themeSlice';
+import { logOut } from '../redux/features/authSlice';
 
-import Logo from '../Logo'
+import Logo from '../components/Logo'
 import NotificationsCard from 'components/NotificationsCard';
 const { Header } = Layout
 const TopHeader = () => {

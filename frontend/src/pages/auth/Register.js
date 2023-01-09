@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { IoCopyOutline, IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import { useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
-import AuthService from '../../services/Auth.service'
+import AuthService from 'services/Auth.service'
 import OTPInput from "otp-input-react";
 import ButtonGroup from 'antd/lib/button/button-group'
 import "./register.css"
@@ -51,7 +51,7 @@ const Register = () => {
         message.success("Copied to Clipboard")
     }
 
-   
+
 
 
     async function onFinish() {
@@ -125,12 +125,12 @@ const Register = () => {
                                         disabled
                                     />
 
-                                    <div style={{ marginBottom: "10px"}}>
+                                    <div style={{ marginBottom: "10px" }}>
 
                                         <Button onClick={toggleSecret} icon={secret_key_visible ? <IoEyeOutline /> : <IoEyeOffOutline />} >View Secret Key</Button>
                                         <Button onClick={onCopyClick} icon={<IoCopyOutline />} >Copy</Button>
                                     </div>
-                                    <OTPInput value={otp} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} style={{ marginBottom: "10px" }} inputStyles={{ color: token.colorPrimary, width: "40px", height: "40px", fontSize: "25px", background: token.colorBgLayout, border : "1px solid", borderRadius : "8px" }} inputClassName="ant-input-number-input" />
+                                    <OTPInput value={otp} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} style={{ marginBottom: "10px" }} inputStyles={{ color: token.colorPrimary, width: "40px", height: "40px", fontSize: "25px", background: token.colorBgLayout, border: "1px solid", borderRadius: "8px" }} inputClassName="ant-input-number-input" />
 
                                     <Button type="primary" onClick={onFinish}>Register</Button>
                                 </Input.Group>

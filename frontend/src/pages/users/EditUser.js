@@ -2,8 +2,8 @@ import { message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import UserForm from './UserForm'
-import UsersService from '../../../services/Users.service'
-import withAuthorizationCheck from '../../../hoc/withAuthCheck'
+import UsersService from 'services/Users.service'
+import withAuthorizationCheck from 'hoc/withAuthCheck'
 
 const EditUser = () => {
 

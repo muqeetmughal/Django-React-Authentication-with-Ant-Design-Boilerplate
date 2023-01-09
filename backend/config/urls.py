@@ -8,10 +8,12 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework.routers import DefaultRouter
 from users.views import UserViewSet
+from access.views import RoleViewSet, PermissionViewSet
 from config.views import MyTokenObtainPairView, CustomTokenRefreshView
 router = DefaultRouter()
-router.register(r'users', UserViewSet, basename='user')
-
+router.register(r'users', UserViewSet, basename='users')
+router.register(r'roles', RoleViewSet, basename='roles')
+router.register(r'permissions', PermissionViewSet, basename='permissions')
 
 urlpatterns = [
     path('api/token/', MyTokenObtainPairView.as_view()),

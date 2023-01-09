@@ -2,11 +2,11 @@
 import { Layout, Menu } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import navitems from '../../configs/NavConfig';
-import { setSidebar } from '../../redux/features/themeSlice';
-import Profile from '../Profile';
+import navitems from '../configs/NavConfig';
+import { setSidebar } from '../redux/features/themeSlice';
+import Profile from '../components/Profile';
 import { useEffect } from 'react';
-import { filterNavItems } from '../../common/functions';
+import { filterNavItems } from '../common/functions';
 import React, { useState } from 'react';
 const { Sider } = Layout;
 

@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import { useLocation, Navigate, Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { Layout } from 'antd';
-import LazyLoadSpinnerFallback from "../LazyLoadSpinnerFallback"
+import LazyLoadSpinnerFallback from "../components/LazyLoadSpinnerFallback"
 import TopHeader from './TopHeader';
 const { Content } = Layout;
 
@@ -43,9 +43,9 @@ const MainLayout = () => {
     )
 
 
-    if (access){
+    if (access) {
         return mainLayout
-    }else{
+    } else {
         return <Navigate to="/auth/login" state={{ from: location }} />
     }
 

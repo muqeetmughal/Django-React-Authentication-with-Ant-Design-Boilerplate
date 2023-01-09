@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from "prop-types";
 import { Grid, Drawer } from "antd";
-import utils from '../../utils'
+import utils from '../utils'
 import { MenuOutlined } from '@ant-design/icons';
 
 const { useBreakpoint } = Grid;

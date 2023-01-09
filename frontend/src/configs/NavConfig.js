@@ -1,4 +1,4 @@
-import { UserOutlined, DesktopOutlined} from '@ant-design/icons';
+import { UserOutlined, DesktopOutlined, LockOutlined} from '@ant-design/icons';
 
 const navitems = [
     {
@@ -14,6 +14,29 @@ const navitems = [
         label: "Users",
         allowed_permissions: ["users.read"],
         allowed_roles: ["superadmin"],
+    },
+    {
+        key: "/access",
+        icon: <LockOutlined />,
+        label: "Access",
+        allowed_permissions: ["users.read"],
+        allowed_roles: ["superadmin"],
+        children : [
+            {
+                key: "/access/roles",
+                icon: <LockOutlined />,
+                label: "Roles",
+                allowed_permissions: ["users.read"],
+                allowed_roles: ["superadmin"]
+            },
+            {
+                key: "/access/permissions",
+                icon: <LockOutlined />,
+                label: "Permissions",
+                allowed_permissions: ["users.read"],
+                allowed_roles: ["superadmin"],
+            }
+        ]
     }
 ]
 

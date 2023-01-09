@@ -3,10 +3,10 @@ import { Layout, Row, Col } from 'antd';
 import React from 'react';
 import TopHeader from "./TopHeader";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../redux/features/authSlice";
-import { ENTRY_ROUTE } from "../../common/constants";
+import { selectCurrentUser } from "../redux/features/authSlice";
+import { ENTRY_ROUTE } from "../common/constants";
 import { Suspense } from "react";
-import LazyLoadSpinnerFallback from "../LazyLoadSpinnerFallback";
+import LazyLoadSpinnerFallback from "../components/LazyLoadSpinnerFallback";
 const { Content, Footer } = Layout;
 
 const PublicLayout = () => {

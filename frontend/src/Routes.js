@@ -8,19 +8,21 @@ import { Routes, Route } from 'react-router';
 // import LoadingWrapper from './components/MainLoading';
 
 
-import MainLayout from './components/layouts/MainLayout';
-import PublicLayout from './components/layouts/PublicLayout';
+import MainLayout from 'layouts/MainLayout';
+import PublicLayout from 'layouts/PublicLayout';
+import Roles from 'pages/access/Roles';
+import Permissions from 'pages/access/Permissions';
 
 
 
-const Login = lazy(() => import("./pages/auth/Login"))
-const Register = lazy(() => import("./pages/auth/Register"))
+const Login = lazy(() => import("pages/auth/Login"))
+const Register = lazy(() => import("pages/auth/Register"))
 
-const Welcome = lazy(() => import("./pages/app/Welcome"))
-const Users = lazy(() => import("./pages/app/users/Users"))
-const AddUser = lazy(() => import('./pages/app/users/AddUser'))
-const ChangePassword = lazy(() => import('./pages/app/users/ChangePassword'))
-const EditUser = lazy(() => import('./pages/app/users/EditUser'))
+const Welcome = lazy(() => import("pages/Welcome"))
+const Users = lazy(() => import("pages/users/Users"))
+const AddUser = lazy(() => import('pages/users/AddUser'))
+const ChangePassword = lazy(() => import('pages/users/ChangePassword'))
+const EditUser = lazy(() => import('pages/users/EditUser'))
 
 
 const RoutesConfig = () => {
@@ -66,6 +68,15 @@ const RoutesConfig = () => {
                         <Route path='add' element={<AddUser />} />
                         <Route path='edit/:id' element={<EditUser />} />
                         <Route path='change-password/:id' element={<ChangePassword />} />
+                    </Route>
+
+                    <Route path="access">
+                        <Route path="roles">
+                            <Route path='' element={<Roles />} />
+                        </Route>
+                        <Route path="permissions">
+                            <Route path='' element={<Permissions />} />
+                        </Route>
                     </Route>
 
 

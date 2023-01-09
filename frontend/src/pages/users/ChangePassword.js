@@ -1,8 +1,8 @@
 import { Button, Col, Form, Input, message, Row } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import withAuthorizationCheck from '../../../hoc/withAuthCheck';
-import UsersService from '../../../services/Users.service';
+import withAuthorizationCheck from 'hoc/withAuthCheck';
+import UsersService from 'services/Users.service';
 
 const ChangePassword = () => {
 
