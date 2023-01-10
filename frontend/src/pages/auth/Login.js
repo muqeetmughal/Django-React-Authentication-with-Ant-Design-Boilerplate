@@ -24,25 +24,24 @@ const Login = () => {
     const onFinish = async (values) => {
         dispatch(setLoading(true))
 
-        try {
             api.post("/api/token/", values).then((resp) => {
                 dispatch(setLoginCredentials({ ...resp.data }))
                 navigate(ENTRY_ROUTE)
-                message.success("Logged in")
+                message.success("Successfully Logged in")
+            }).catch(err=>{
+                
+                console.log("Error here",err.response)
+                if (err.response.data) {
+                    message.error(err.response.data.detail)
+                }
+                else {
+                    message.error("Unable to login check internet")
+                }
+
+
             })
 
 
-        } catch (err) {
-            // dispatch(logOut())
-
-            if (err.response.data) {
-                message.error(err.response.data.detail)
-            }
-            else {
-
-                message.error("Unable to login check internet")
-            }
-        }
         dispatch(setLoading(false))
     };
 

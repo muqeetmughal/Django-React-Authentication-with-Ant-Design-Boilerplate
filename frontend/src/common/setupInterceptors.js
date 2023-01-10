@@ -85,9 +85,9 @@ const setup = (store) => {
         },
         async (err) => {
 
-            if (err.response.status === 401) {
-                dispatch(logOut())
-            }
+            // if (err.response.status === 401) {
+            //     dispatch(logOut())
+            // }
 
             // const originalConfig = err.config;
             // if (originalConfig.url !== "/auth" && err.response) {
