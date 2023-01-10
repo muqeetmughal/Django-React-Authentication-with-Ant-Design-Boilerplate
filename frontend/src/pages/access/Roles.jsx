@@ -1,11 +1,11 @@
 import { Button, Col, Input, message, Popconfirm, Row, Space, Table, Tag } from 'antd'
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import UsersService from 'services/Users.service'
 import { EditFilled, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchPermissions, fetchRoles, setFormOpen } from 'redux/features/accessSlice'
+import { fetchPermissions, fetchRoles, setFormOpen, setFormMode, setFormValues, setSelected, handleFormModalEdit, handleFormModalCreate } from 'redux/features/accessSlice'
 import RoleForm from './RoleForm';
+import api from 'common/api';
 
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
@@ -16,22 +16,24 @@ const Roles = () => {
   const { roles_list, loading } = useSelector(state => state.access)
 
   const handleDelete = (key) => {
-    // UsersService.deleteUser({
-    //   "user_id": key
-    // })
-    //   .then(resp => {
-    //     fetchUsers()
-    //     message.success("User Deleted Successfully")
-    //   })
-    //   .catch(err => {
-    //     message.err("User Deleted Successfully")
-    //     console.log(err)
-    //   })
-
+    api.delete(`/roles/${key}`)
+      .then(resp => {
+        if (resp.status === 204) {
+          dispatch(fetchRoles())
+          message.success("Deleted Successfully")
+        }
+      }).catch(err => {
+        message.error(err.response.data.detail)
+      })
   }
-  const handleUpdate = (key) => {
+  const handleUpdate = async (key) => {
 
-    console.log("editing : ", key)
+    api.get(`/roles/${key}/`).then(resp => {
+      dispatch(handleFormModalEdit(resp.data))
+    }).catch(err => {
+      message.error(err.response.data.detail)
+    })
+
   }
 
 
@@ -82,20 +84,20 @@ const Roles = () => {
 
           {/* <Guard allowedPermissions={["users.update"]}> */}
 
-          <EditFilled onClick={handleUpdate} style={{ color: "blue", fontSize: "12" }} />
+          <EditFilled onClick={() => (handleUpdate(record.id))} style={{ color: "blue", fontSize: "12" }} />
           {/* </Guard> */}
 
 
           {/* <Guard allowedPermissions={['users.delete']}> */}
 
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record._id)}>
+          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
             <DeleteOutlined style={{ color: "red", fontSize: "12" }} />
           </Popconfirm>
           {/* </Guard> */}
 
           {/* <Guard allowedPermissions={["users.change_password"]}> */}
 
-          <Link to={`/users/change-password/${record._id}`} >
+          <Link to={`/users/change-password/${record.id}`} >
             <EyeOutlined style={{ color: "green", fontSize: "12" }} />
 
           </Link>
@@ -127,7 +129,7 @@ const Roles = () => {
 
         <Col>
           {/* <Guard allowedPermissions={["users.create"]}> */}
-          <Button type="primary" onClick={() => dispatch(setFormOpen(true))}>
+          <Button type="primary" onClick={() => { dispatch(handleFormModalCreate())}}>
             Add Role
           </Button>
 

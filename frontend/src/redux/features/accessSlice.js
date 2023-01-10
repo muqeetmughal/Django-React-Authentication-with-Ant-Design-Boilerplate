@@ -6,8 +6,10 @@ const initialState = {
     permissions_list: [],
 
     loading: true,
-    formOpen : false,
-    formMode : "add",
+    formOpen: false,
+    formMode: "add",
+    formValues: {},
+    selected: null,
 
 
 }
@@ -33,14 +35,37 @@ const accessSlice = createSlice({
     name: "access",
     initialState,
     reducers: {
-        setFormOpen: (state,action) => {
+        setFormOpen: (state, action) => {
             state.formOpen = action.payload
 
         },
 
-        setFormMode: (state,action) => {
+        setFormMode: (state, action) => {
             state.formMode = action.payload
 
+        },
+        setFormValues: (state, action) => {
+            state.formValues = action.payload
+
+        },
+        setSelected: (state, action) => {
+            state.selected = action.payload
+
+        },
+        handleFormModalCancel: (state, action) => {
+            state.formValues = {};
+            state.formMode = "add";
+            state.formOpen = false;
+        },
+        handleFormModalCreate: (state, action) => {
+            state.formValues = {};
+            state.formMode = "add";
+            state.formOpen = true;
+        },
+        handleFormModalEdit: (state, action) => {
+            state.formValues = action.payload;
+            state.formMode = "edit";
+            state.formOpen = true;
         },
     },
     extraReducers: (builder) => {
@@ -63,5 +88,5 @@ const accessSlice = createSlice({
 })
 
 
-export const { setFormOpen,setFormMode } = accessSlice.actions
+export const { setFormOpen, setFormMode, setFormValues, setSelected, handleFormModalCancel, handleFormModalCreate, handleFormModalEdit } = accessSlice.actions
 export default accessSlice.reducer

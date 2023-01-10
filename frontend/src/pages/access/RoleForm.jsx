@@ -1,47 +1,76 @@
 import { Button, Col, Form, Input, Modal, Row, Select, message } from 'antd';
 import api from 'common/api';
+import { toCapitalize } from 'common/functions';
 import React from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRoles, setFormOpen } from 'redux/features/accessSlice';
+import { fetchRoles, handleFormModalCancel, setFormOpen, setSelected } from 'redux/features/accessSlice';
 
-const RoleForm = () => {
+const RoleFormModal = () => {
     const dispatch = useDispatch()
-    const { formOpen, formMode, permissions_list } = useSelector(state => state.access)
+    // const [formValues, setFormValues] = useState({})
+
+    const { selected, formOpen, formMode } = useSelector(state => state.access)
+
+
+
+
+
+    useEffect(() => {
+
+        console.log("Modal rendered")
+
+
+
+    }, [])
+
+    return (
+
+
+        <Modal
+            title={`${toCapitalize(formMode)} Role`}
+            width={700}
+            open={formOpen}
+            footer={null}
+            maskClosable={true}
+            destroyOnClose={true}
+            onCancel={() => dispatch(handleFormModalCancel())}
+        >
+            {/* {JSON.stringify(selected)} */}
+            <RoleForm />
+        </Modal>
+    )
+}
+
+export default RoleFormModal
+
+
+
+export const RoleForm = () => {
+
+    const dispatch = useDispatch()
+    // const [formValues, setFormValues] = useState({})
+
+    const { selected, formOpen, formMode, permissions_list, formValues } = useSelector(state => state.access)
 
     const [form] = Form.useForm();
 
 
-
-    // const handleOk = () => {
-
-    // };
-
-    const layout = {
-        // labelCol: {
-        //     span: 8,
-        // },
-        // wrapperCol: {
-        //     span: 16,
-        // },
-    };
-
     const onFinish = (values) => {
-
-        console.log("Form values are : ", values)
 
         if (formMode === "add") {
             api.post("/roles/", values)
                 .then((resp) => {
 
-                    if (resp.status===201){
+                    if (resp.status === 201) {
 
                         form.resetFields()
-                        dispatch(setFormOpen(false))
+                        dispatch(handleFormModalCancel())
 
                         dispatch(fetchRoles())
                         message.success(resp.statusText)
-                    }else{
+                    } else {
                         console.log(resp)
                     }
                 })
@@ -51,20 +80,27 @@ const RoleForm = () => {
                 })
 
         } else if (formMode === "edit") {
-            // UsersService.editUser(data?._id, values)
-            //     .then((resp) => {
-            //         if (resp.data.success) {
-            //             form.resetFields()
-            //             message.success(resp.data.msg)
-            //             navigate("/users")
+            api.put(`/roles/${formValues.id}/`, values)
+                .then((resp) => {
 
-            //         } else {
-            //             message.error(resp.data.msg)
-            //         }
-            //     }).catch((err) => {
-            //         return Promise.reject(err)
-            //     })
+                    if (resp.status === 200) {
 
+                        form.resetFields()
+
+                        dispatch(handleFormModalCancel())
+
+                        dispatch(fetchRoles())
+
+                        message.success("Updated Successfully")
+                    } else {
+                        message.error("Cannot update please check console")
+                        console.log(resp)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.response.data)
+                    Promise.reject(err)
+                })
         }
 
     };
@@ -73,27 +109,19 @@ const RoleForm = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+
     return (
-
-
-        <Modal
-            title="Title"
-            width={700}
-            open={formOpen}
-            onOk={form.submit}
-            onCancel={() => { form.resetFields(); dispatch(setFormOpen(false)) }}
-            maskClosable={false}
-        >
+        <>
             <Row gutter={[8, 8]}>
                 <Form
-                    {...layout}
                     autoComplete="off"
                     layout="vertical"
                     form={form}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     style={{ width: "100%" }}
-                    initialValues={formMode === "edit" ? {} : {}}
+                    initialValues={formValues}
                 >
                     <Row gutter={[8, 8]}>
                         <Col span={24}>
@@ -121,14 +149,20 @@ const RoleForm = () => {
                                 <Select
                                     mode="multiple"
                                     allowClear
-                                    style={{ width: '100%' }}
                                     placeholder="Please select"
-                                    // defaultValue={['a10', 'c12']}
-                                    // onChange={handleChange}
                                     options={permissions_list}
 
-                                    fieldNames={{ label: "name", value: "id", options: "options" }}
+                                    fieldNames={{ label: "name", value: "id" }}
                                 />
+                                {/* <Select
+                                    mode="multiple"
+                                    allowClear
+                                    placeholder="Please select"
+                                >
+
+                                    {permissions_list.map((permission, index) => <Select.Option key={index} value={permission.id}>{permission.name}</Select.Option>)}
+
+                                </Select> */}
 
                             </Form.Item>
                         </Col>
@@ -136,11 +170,15 @@ const RoleForm = () => {
                         </Col> */}
                     </Row>
 
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Save
+                        </Button>
+                    </Form.Item>
+
 
                 </Form>
             </Row>
-        </Modal>
+        </>
     )
 }
-
-export default RoleForm

@@ -51,7 +51,7 @@ export function filterNavItems(user, navitems) {
         navitems.forEach((navitem, i) => {
 
             var isPermitted = user.is_superuser || user.permissions?.find(permission => navitem.allowed_permissions?.includes(permission)) || user.role?.find(role_ => navitem.allowed_roles?.includes(role_))
-   
+
 
             if (isPermitted) {
 
@@ -68,4 +68,8 @@ export function filterNavItems(user, navitems) {
     }
 
 
+}
+
+export const toCapitalize = (string) => {
+    return string[0].toUpperCase() + string.substring(1);
 }

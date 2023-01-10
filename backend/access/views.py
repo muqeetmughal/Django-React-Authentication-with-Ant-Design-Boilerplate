@@ -2,12 +2,12 @@ from django.shortcuts import render
 from django.contrib.auth.models import Group, Permission
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from .serializers import ListRoleSerializer, CreateRoleSerializer, PermissionSerializer
+from .serializers import RoleSerializer, ListRoleSerializer, CreateRoleSerializer, PermissionSerializer
 
 
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
-    serializer_class = ListRoleSerializer
+    serializer_class = RoleSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     # def create(self, request, *args, **kwargs):
