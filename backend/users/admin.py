@@ -6,18 +6,22 @@ from .forms import UserChangeForm, UserCreationForm
 
 class CustomUserAdmin(UserAdmin):
 
-    form = UserChangeForm
-    add_form = UserCreationForm
+    # form = UserChangeForm
+    # add_form = UserCreationForm
 
     list_display = ('email',)
-    list_filter = ('is_superuser','is_active')
+    list_filter = ('is_superuser', 'is_active')
     fieldsets = (
-        (None, {'fields': ('first_name', 'last_name', 'is_active',
-         'is_staff', 'is_superuser', 'email', 'password')}),
+        ('Details', {'fields': ('first_name',
+         'last_name', 'email', 'password')}),
+        ('Access', {'fields': ('is_active', 'is_staff',
+         'is_superuser', 'user_permissions', 'groups')}),
     )
     add_fieldsets = (
-        (None, {'fields': ('first_name', 'last_name', 'is_active',
-         'is_staff', 'is_superuser', 'email', 'password1', 'password2')}),
+        ('Details', {'fields': ('first_name',
+         'last_name', 'email', 'password1','password2')}),
+        ('Access', {'fields': ('is_active', 'is_staff',
+         'is_superuser', 'user_permissions', 'groups')}),
     )
     search_fields = ('email',)
     ordering = ('email',)
