@@ -7,6 +7,7 @@ import { fetchPermissions, fetchRoles, setFormOpen, setFormMode, setFormValues, 
 import RoleForm from './RoleForm';
 import api from 'common/api';
 import Guard from 'providers/Guard';
+import withAuthCheck from 'hoc/withAuthCheck';
 
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
@@ -24,7 +25,7 @@ const Roles = () => {
           message.success("Deleted Successfully")
         }
       }).catch(err => {
-        message.error(err.response.data.detail)
+        console.log(err)
       })
   }
   const handleUpdate = async (key) => {
@@ -32,7 +33,7 @@ const Roles = () => {
     api.get(`/roles/${key}/`).then(resp => {
       dispatch(handleFormModalEdit(resp.data))
     }).catch(err => {
-      message.error(err.response.data.detail)
+      console.log(err)
     })
 
   }
@@ -148,5 +149,5 @@ const Roles = () => {
     </>
   )
 }
-export default Roles
-// export default withAuthCheck(Users, ['users.read'])
+// export default Roles
+export default withAuthCheck(Roles, ['auth.view_group'])

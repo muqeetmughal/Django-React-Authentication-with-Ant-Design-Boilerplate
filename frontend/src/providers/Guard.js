@@ -1,10 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-const Guard = ({ allowedPermissions = [], allowedRoles = [], children }) => {
-
-
-    allowedRoles.push("superadmin")
+const Guard = ({ allowedPermissions = [], children }) => {
 
     const { user } = useSelector((state) => state.auth)
 

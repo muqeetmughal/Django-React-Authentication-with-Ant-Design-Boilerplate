@@ -7,6 +7,7 @@ import { EditFilled, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined, L
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers } from 'redux/features/usersSlice'
 import Guard from 'providers/Guard'
+import withAuthCheck from 'hoc/withAuthCheck'
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
 
@@ -181,5 +182,5 @@ const Users = () => {
         </>
     )
 }
-export default Users
-// export default withAuthCheck(Users, ['users.read'])
+// export default Users
+export default withAuthCheck(Users, ['users.view_useraccount'])

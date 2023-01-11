@@ -4,30 +4,16 @@ import Unauthorized from "../components/Unauthorized";
 
 
 
-const withAuthCheck = (Component = null, allowedPermissions = [], allowedRoles = []) => {
+const withAuthCheck = (Component = null, allowedPermissions = []) => {
   function PrivateRoute(props) {
-    allowedRoles.push("superadmin")
 
-    const auth = useSelector((state) => state.auth)
-    
-    
-    
-    var isPermitted = auth.user.role?.find(role_ => allowedRoles?.includes(role_))
-
-    if (!isPermitted) {
-       isPermitted = auth.user.permissions?.find(permission => allowedPermissions?.includes(permission))
-    }
+    const {user} = useSelector((state) => state.auth)
 
 
-
-
-
-
-
+    let isPermitted = user.is_superuser || user.user_permissions?.find(permission => allowedPermissions?.includes(permission))
 
     return (
-      isPermitted ?
-        <Component {...props} /> : <Unauthorized />)
+      isPermitted ? <Component {...props} /> : <Unauthorized />)
   }
 
   return PrivateRoute;

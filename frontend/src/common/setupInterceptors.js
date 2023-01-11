@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { logOut, setRefreshCredentials } from '../redux/features/authSlice';
 import appConfigs from './appConfigs';
+import { message, notification } from 'antd';
 
 
 const AUTH_TOKEN = "auth"
@@ -51,7 +52,7 @@ const setup = (store) => {
                             refresh_token_config
                         )
 
-                        const { access: new_access, refresh: new_refresh, user : new_user } = resp.data
+                        const { access: new_access, refresh: new_refresh, user: new_user } = resp.data
 
                         const new_data_for_local_storage = {
                             access: new_access,
@@ -85,9 +86,11 @@ const setup = (store) => {
         },
         async (err) => {
 
-            // if (err.response.status === 401) {
-            //     dispatch(logOut())
-            // }
+            if (err.response.status === 403) {
+                // dispatch(logOut())
+                message.warning(err.response.data.detail + ", try login again")
+
+            }
 
             // const originalConfig = err.config;
             // if (originalConfig.url !== "/auth" && err.response) {
