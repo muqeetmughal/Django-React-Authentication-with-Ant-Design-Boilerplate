@@ -84,15 +84,15 @@ const Roles = () => {
 
           <Guard allowedPermissions={["auth.change_group"]}>
 
-          <EditFilled onClick={() => (handleUpdate(record.id))} style={{ color: "blue", fontSize: "12" }} />
+            <EditFilled onClick={() => (handleUpdate(record.id))} style={{ color: "blue", fontSize: "12" }} />
           </Guard>
 
 
           <Guard allowedPermissions={['auth.delete_group']}>
 
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
-            <DeleteOutlined style={{ color: "red", fontSize: "12" }} />
-          </Popconfirm>
+            <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+              <DeleteOutlined style={{ color: "red", fontSize: "12" }} />
+            </Popconfirm>
           </Guard>
 
 
@@ -117,9 +117,9 @@ const Roles = () => {
 
         <Col>
           <Guard allowedPermissions={["auth.add_group"]}>
-          <Button type="primary" onClick={() => { dispatch(handleFormModalCreate())}}>
-            Add Role
-          </Button>
+            <Button type="primary" onClick={() => { dispatch(handleFormModalCreate()) }}>
+              Add Role
+            </Button>
 
           </Guard>
 

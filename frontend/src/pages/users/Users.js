@@ -1,4 +1,4 @@
-import { Button, Col, message, Popconfirm, Row, Space, Table, Tag } from 'antd'
+import { Button, Col, Input, message, Popconfirm, Row, Space, Table, Tag } from 'antd'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -138,8 +138,7 @@ const Users = () => {
             <Row justify="space-between">
                 <Col>
 
-                    Search Form here
-
+                <Input placeholder='Search' />
 
 
                 </Col>
