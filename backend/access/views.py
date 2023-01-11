@@ -3,12 +3,13 @@ from django.contrib.auth.models import Group, Permission
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from .serializers import RoleSerializer, ListRoleSerializer, CreateRoleSerializer, PermissionSerializer
+from config.permissions import CustomDjangoModelPermissions
 
 
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = RoleSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [CustomDjangoModelPermissions]
 
     # def create(self, request, *args, **kwargs):
     #     serializer = self.get_serializer(data=request.data)

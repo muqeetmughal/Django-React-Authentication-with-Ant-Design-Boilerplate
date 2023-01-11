@@ -29,3 +29,6 @@ class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = "__all__"
+class PermissionSerializerForUserPermissions(PermissionSerializer):
+    class Meta(PermissionSerializer.Meta):
+        fields = ["codename"]

@@ -7,7 +7,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserSerializerForToken
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -39,9 +39,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['access'] = str(refresh.access_token)
         my_user = User.objects.filter(pk=self.user.id).first()
         if my_user:
-            # use user serelizor or parse required fields
             data['user'] = my_user
-            data['permissions'] = list(my_user.get_all_permissions())
 
         return data
 
@@ -60,15 +58,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
         access = serializer.validated_data.get("access", None)
         refresh = serializer.validated_data.get("refresh", None)
         user = serializer.validated_data.get("user", None)
-        permissions = serializer.validated_data.get("permissions", None)
-
         # print(serializer.validated_data)
 
         # build your response and set cookie
 
         if access is not None:
             response = Response(
-                {"access": access, "refresh": refresh, "user": UserSerializer(user).data, "permissions": permissions}, status=200)
+                {"access": access, "refresh": refresh, "user": UserSerializerForToken(user).data}, status=200)
             # response.set_cookie('refresh', refresh, httponly=True)
             return response
 
@@ -88,7 +84,6 @@ class CustomTokenRefreshSerializer(TokenRefreshSerializer):
         if my_user:
             # use user serelizor or parse required fields
             data['user'] = my_user
-            data['permissions'] = list(my_user.get_all_permissions())
 
         return data
 
@@ -98,7 +93,6 @@ class CustomTokenRefreshView(TokenRefreshView):
     Custom Refresh token View
     """
     serializer_class = CustomTokenRefreshSerializer
-
 
     def post(self, request, *args, **kwargs):
         # you need to instantiate the serializer with the request data
@@ -111,7 +105,6 @@ class CustomTokenRefreshView(TokenRefreshView):
         access = serializer.validated_data.get("access", None)
         refresh = serializer.validated_data.get("refresh", None)
         user = serializer.validated_data.get("user", None)
-        permissions = serializer.validated_data.get("permissions", None)
 
         # print(serializer.validated_data)
 
@@ -119,7 +112,7 @@ class CustomTokenRefreshView(TokenRefreshView):
 
         if access is not None:
             response = Response(
-                {"access": access, "refresh": refresh, "user": UserSerializer(user).data, "permissions": permissions}, status=200)
+                {"access": access, "refresh": refresh, "user": UserSerializerForToken(user).data}, status=200)
             # response.set_cookie('refresh', refresh, httponly=True)
             return response
 
