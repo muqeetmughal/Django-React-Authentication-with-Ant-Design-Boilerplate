@@ -1,28 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-const Guard = ({ allowedPermissions = [], allowedRoles = [] , children}) => {
+const Guard = ({ allowedPermissions = [], allowedRoles = [], children }) => {
 
 
     allowedRoles.push("superadmin")
 
-    const auth = useSelector((state) => state.auth)
-    
-    
-    
-    var isPermitted = auth.user.role?.find(role_ => allowedRoles?.includes(role_))
+    const { user } = useSelector((state) => state.auth)
 
-    if (!isPermitted) {
-        isPermitted = auth.user.permissions?.find(permission => allowedPermissions?.includes(permission))
-    }
+    let isPermitted = user.is_superuser || user.user_permissions?.find(permission => allowedPermissions?.includes(permission))
 
-
-
-    if (isPermitted){
-
+    if (isPermitted) {
         return <>{children}</>
     }
-    else{
+    else {
         return <></>
     }
 }

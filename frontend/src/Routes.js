@@ -11,8 +11,6 @@ import { Routes, Route } from 'react-router';
 import MainLayout from 'layouts/MainLayout';
 import PublicLayout from 'layouts/PublicLayout';
 import Roles from 'pages/access/Roles';
-import Permissions from 'pages/access/Permissions';
-
 
 
 const Login = lazy(() => import("pages/auth/Login"))

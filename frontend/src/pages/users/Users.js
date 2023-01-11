@@ -6,6 +6,7 @@ import UsersService from 'services/Users.service'
 import { EditFilled, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers } from 'redux/features/usersSlice'
+import Guard from 'providers/Guard'
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
 
@@ -83,7 +84,7 @@ const Users = () => {
             ],
             onFilter: (value, record) => record.is_active === value,
             render: (_, record) => (
-                <span style={{ display: "flex", justifyContent: "center" }}>{record.active ? <CheckCircleOutlined style={{ color: "green" }} /> : <CloseCircleOutlined style={{ color: "red" }} />}</span>
+                <span style={{ display: "flex", justifyContent: "center" }}>{record.is_active ? <CheckCircleOutlined style={{ color: "green" }} /> : <CloseCircleOutlined style={{ color: "red" }} />}</span>
             )
         },
         {
@@ -94,29 +95,29 @@ const Users = () => {
             render: (_, record) => (
                 <Space size="middle" style={{ display: "flex", justifyContent: "center" }}>
 
-                    {/* <Guard allowedPermissions={["users.update"]}> */}
+                    <Guard allowedPermissions={["users.change_useraccount"]}>
 
-                    <Link to={`/users/edit/${record._id}`} >
-                        <EditFilled style={{ color: "blue", fontSize: "12" }} />
-                    </Link>
-                    {/* </Guard> */}
+                        <Link to={`/users/edit/${record._id}`} >
+                            <EditFilled style={{ color: "blue", fontSize: "12" }} />
+                        </Link>
+                    </Guard>
 
 
-                    {/* <Guard allowedPermissions={['users.delete']}> */}
+                    <Guard allowedPermissions={['users.delete_useraccount']}>
 
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record._id)}>
-                        <DeleteOutlined style={{ color: "red", fontSize: "12" }} />
-                    </Popconfirm>
-                    {/* </Guard> */}
+                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record._id)}>
+                            <DeleteOutlined style={{ color: "red", fontSize: "12" }} />
+                        </Popconfirm>
+                    </Guard>
 
-                    {/* <Guard allowedPermissions={["users.change_password"]}> */}
+                    <Guard allowedPermissions={["users.change_useraccount"]}>
 
                     <Link to={`/users/change-password/${record._id}`} >
                         <LockOutlined style={{ color: "green", fontSize: "12" }} />
 
                     </Link>
 
-                    {/* </Guard> */}
+                    </Guard>
 
 
 
@@ -145,14 +146,14 @@ const Users = () => {
 
 
                 <Col>
-                    {/* <Guard allowedPermissions={["users.create"]}> */}
-                    <Link to="/users/add">
-                        <Button type="primary">
-                            Add User
-                        </Button>
-                    </Link>
+                    <Guard allowedPermissions={["users.add_useraccount"]}>
+                        <Link to="/users/add">
+                            <Button type="primary">
+                                Add User
+                            </Button>
+                        </Link>
 
-                    {/* </Guard> */}
+                    </Guard>
 
                 </Col>
             </Row>
@@ -161,7 +162,7 @@ const Users = () => {
                 columns={columns}
                 dataSource={users_list}
                 scroll={{
-                    x: 1600,
+                    // x: 1600,
                     // y: "70vh"
                 }}
                 // bordered={true}
@@ -171,9 +172,11 @@ const Users = () => {
                     position: ["bottomCenter"],
                 }}
                 loading={loading}
-                rowSelection={true}
+                rowSelection={false}
                 onChange={handleTableChange}
             />
+
+
 
         </>
     )

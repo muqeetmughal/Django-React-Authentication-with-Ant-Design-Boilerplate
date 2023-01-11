@@ -42,11 +42,6 @@ export function filterNavItems(user, navitems) {
 
     
     if (user) {
-
-        // var isPermitted = user.role?.find(role_ => allowedRoles?.includes(role_))
-
-
-
         navitems.forEach((navitem, i) => {
 
             var isPermitted = user.is_superuser || user.user_permissions?.find(permission => navitem.allowed_permissions?.includes(permission))
@@ -56,8 +51,6 @@ export function filterNavItems(user, navitems) {
 
                 final_nav_items.push(navitem)
             }
-
-            // console.log(navitem.key, isPermitted)
 
         })
 

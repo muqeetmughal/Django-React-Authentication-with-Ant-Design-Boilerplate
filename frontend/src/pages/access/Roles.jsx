@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchPermissions, fetchRoles, setFormOpen, setFormMode, setFormValues, setSelected, handleFormModalEdit, handleFormModalCreate } from 'redux/features/accessSlice'
 import RoleForm from './RoleForm';
 import api from 'common/api';
+import Guard from 'providers/Guard';
 
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
@@ -40,7 +41,7 @@ const Roles = () => {
 
   useEffect(() => {
     dispatch(fetchRoles())
-    // dispatch(fetchPermissions())
+    dispatch(fetchPermissions())
 
   }, [dispatch])
 
@@ -80,30 +81,18 @@ const Roles = () => {
       render: (_, record) => (
         <Space size="middle" style={{ display: "flex", justifyContent: "center" }}>
 
-          {/* <Guard allowedPermissions={["users.update"]}> */}
+          <Guard allowedPermissions={["auth.change_group"]}>
 
           <EditFilled onClick={() => (handleUpdate(record.id))} style={{ color: "blue", fontSize: "12" }} />
-          {/* </Guard> */}
+          </Guard>
 
 
-          {/* <Guard allowedPermissions={['users.delete']}> */}
+          <Guard allowedPermissions={['auth.delete_group']}>
 
           <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
             <DeleteOutlined style={{ color: "red", fontSize: "12" }} />
           </Popconfirm>
-          {/* </Guard> */}
-
-          {/* <Guard allowedPermissions={["users.change_password"]}> */}
-
-          <Link to={`/users/change-password/${record.id}`} >
-            <EyeOutlined style={{ color: "green", fontSize: "12" }} />
-
-          </Link>
-
-          {/* </Guard> */}
-
-
-
+          </Guard>
 
 
         </Space>
@@ -126,12 +115,12 @@ const Roles = () => {
 
 
         <Col>
-          {/* <Guard allowedPermissions={["users.create"]}> */}
+          <Guard allowedPermissions={["auth.add_group"]}>
           <Button type="primary" onClick={() => { dispatch(handleFormModalCreate())}}>
             Add Role
           </Button>
 
-          {/* </Guard> */}
+          </Guard>
 
         </Col>
       </Row>
