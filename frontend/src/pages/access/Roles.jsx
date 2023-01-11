@@ -66,8 +66,6 @@ const Roles = () => {
     {
       title: 'Permissions',
       key: 'permissions',
-      // dataIndex : 'permissions',
-      sorter: true,
       render: (record) => {
         return record.permissions.map((permission, index) => {
           return <Tag key={index}>{permission.name}</Tag>
