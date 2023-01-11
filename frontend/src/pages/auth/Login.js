@@ -11,6 +11,7 @@ import { setLoginCredentials, logOut, setLoading } from 'redux/features/authSlic
 import { LockOutlined } from '@ant-design/icons';
 import api from 'common/api';
 import { ENTRY_ROUTE } from 'common/constants';
+import { fetchPermissions } from 'redux/features/accessSlice';
 
 
 const Login = () => {
@@ -24,22 +25,23 @@ const Login = () => {
     const onFinish = async (values) => {
         dispatch(setLoading(true))
 
-            api.post("/api/token/", values).then((resp) => {
-                dispatch(setLoginCredentials({ ...resp.data }))
-                navigate(ENTRY_ROUTE)
-                message.success("Successfully Logged in")
-            }).catch(err=>{
-                
-                console.log("Error here",err.response)
-                if (err.response.data) {
-                    message.error(err.response.data.detail)
-                }
-                else {
-                    message.error("Unable to login check internet")
-                }
+        api.post("/api/token/", values).then((resp) => {
+            // dispatch(fetchPermissions())
+            dispatch(setLoginCredentials({ ...resp.data }))
+            navigate(ENTRY_ROUTE)
+            message.success("Successfully Logged in")
+        }).catch(err => {
+
+            console.log("Error here", err.response)
+            if (err.response.data) {
+                message.error(err.response.data.detail)
+            }
+            else {
+                message.error("Unable to login check internet")
+            }
 
 
-            })
+        })
 
 
         dispatch(setLoading(false))

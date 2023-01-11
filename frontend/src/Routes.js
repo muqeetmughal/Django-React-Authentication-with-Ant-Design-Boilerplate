@@ -70,13 +70,8 @@ const RoutesConfig = () => {
                         <Route path='change-password/:id' element={<ChangePassword />} />
                     </Route>
 
-                    <Route path="access">
-                        <Route path="roles">
-                            <Route path='' element={<Roles />} />
-                        </Route>
-                        <Route path="permissions">
-                            <Route path='' element={<Permissions />} />
-                        </Route>
+                    <Route path="roles">
+                        <Route path='' element={<Roles />} />
                     </Route>
 
 

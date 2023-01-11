@@ -51,12 +51,12 @@ const setup = (store) => {
                             refresh_token_config
                         )
 
-                        const { access: new_access, refresh: new_refresh } = resp.data
+                        const { access: new_access, refresh: new_refresh, user : new_user } = resp.data
 
                         const new_data_for_local_storage = {
                             access: new_access,
                             refresh: new_refresh,
-                            user: user
+                            user: new_user
                         }
 
                         localStorage.setItem(AUTH_TOKEN, JSON.stringify(new_data_for_local_storage))

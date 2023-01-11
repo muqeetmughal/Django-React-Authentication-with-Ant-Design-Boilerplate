@@ -40,8 +40,7 @@ export function filterNavItems(user, navitems) {
 
     let final_nav_items = []
 
-    // const user = store.getState().auth.user
-
+    
     if (user) {
 
         // var isPermitted = user.role?.find(role_ => allowedRoles?.includes(role_))
@@ -50,7 +49,7 @@ export function filterNavItems(user, navitems) {
 
         navitems.forEach((navitem, i) => {
 
-            var isPermitted = user.is_superuser || user.permissions?.find(permission => navitem.allowed_permissions?.includes(permission)) || user.role?.find(role_ => navitem.allowed_roles?.includes(role_))
+            var isPermitted = user.is_superuser || user.user_permissions?.find(permission => navitem.allowed_permissions?.includes(permission))
 
 
             if (isPermitted) {

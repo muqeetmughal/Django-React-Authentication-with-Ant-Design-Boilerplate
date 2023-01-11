@@ -9,26 +9,23 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'permissions']
 
 
-
 class ListRoleSerializer(RoleSerializer):
     class Meta(RoleSerializer.Meta):
         depth = 1
+
 
 class CreateRoleSerializer(RoleSerializer):
     class Meta(RoleSerializer.Meta):
         pass
 
 
-
-
-
-
-
-
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = "__all__"
+
+
 class PermissionSerializerForUserPermissions(PermissionSerializer):
     class Meta(PermissionSerializer.Meta):
-        fields = ["codename"]
+        # fields = ["codename"]
+        pass

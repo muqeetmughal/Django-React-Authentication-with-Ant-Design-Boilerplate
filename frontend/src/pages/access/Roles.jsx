@@ -40,7 +40,7 @@ const Roles = () => {
 
   useEffect(() => {
     dispatch(fetchRoles())
-    dispatch(fetchPermissions())
+    // dispatch(fetchPermissions())
 
   }, [dispatch])
 
