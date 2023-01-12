@@ -10,6 +10,7 @@ import withAuthCheck from 'hoc/withAuthCheck';
 import RoleFormModal from 'pages/access/GroupForm';
 import UserFormModal from './UserForm';
 import { fetchGroups, fetchPermissions } from 'redux/features/accessSlice';
+import dayjs from 'dayjs';
 
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
@@ -72,6 +73,23 @@ const Users = () => {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
+    },
+    {
+      title: 'Groups',
+      // dataIndex: 'groups',
+      render : (record) => {
+        return record.groups.map((group, index)=>{
+          return <Tag key={index}>{group.name}</Tag>
+        })
+      },
+      key: 'groups',
+    },
+    {
+      title: 'Last Login',
+      key: 'last_login',
+      render : (record) => {
+        return <Tag>{record.last_login ? dayjs(record.last_login).toString() : "None"}</Tag>
+      },
     },
     {
       title: 'Active',
