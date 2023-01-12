@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group, Permission
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from .serializers import RoleSerializer, ListRoleSerializer, CreateRoleSerializer, PermissionSerializer
-from config.permissions import CustomDjangoModelPermissions
+from access.permissions import CustomDjangoModelPermissions
 from django.db.models import Q
 
 

@@ -9,7 +9,9 @@ from rest_framework_simplejwt.views import (
 from rest_framework.routers import DefaultRouter
 from users.views import UserViewSet
 from access.views import RoleViewSet, PermissionViewSet
-from config.views import MyTokenObtainPairView, CustomTokenRefreshView
+from authentication.views import MyTokenObtainPairView, CustomTokenRefreshView
+
+
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
 router.register(r'groups', RoleViewSet, basename='roles')
@@ -21,6 +23,5 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view()),
     # path('api/users/', include('users.urls')),
     path('admin/', admin.site.urls),
+    path('', include(router.urls))
 ]
-
-urlpatterns += router.urls

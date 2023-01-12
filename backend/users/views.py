@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import permissions, status, viewsets
 from .serializers import UserSerializer, CreateUserSerializer, UpdateUserSerializer, ListUserSerializer, ChangeUserPasswordSerializer
 from django.contrib.auth import get_user_model
-from config.permissions import CustomDjangoModelPermissions
+from access.permissions import CustomDjangoModelPermissions
 
 User = get_user_model()
 
