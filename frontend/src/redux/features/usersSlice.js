@@ -48,7 +48,7 @@ const usersSlice = createSlice({
             state.formValues = {};
             state.selected = null
             state.formOpen = false;
-            state.formMode = "add";
+            // state.formMode = "add";
         },
         handleFormModalCreate: (state, action) => {
             state.formValues = {};

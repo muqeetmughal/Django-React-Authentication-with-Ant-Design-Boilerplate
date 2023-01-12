@@ -49,7 +49,7 @@ export const ChangePasswordForm = () => {
     const onFinish = (values) => {
 
         if (formMode === "change_password") {
-            api.post("/users/change_password", values)
+            api.post(`/users/${selected}/change_password/`, values)
                 .then((resp) => {
 
                     if (resp.status === 200) {
@@ -57,9 +57,9 @@ export const ChangePasswordForm = () => {
                         form.resetFields()
                         dispatch(handleFormModalCancel())
 
-                        message.success(resp.statusText)
+                        message.success(resp.data.status)
                     } else {
-                        console.log("err during create user", resp)
+                        console.log("err during change user password", resp)
                     }
                 })
                 .catch((err) => {

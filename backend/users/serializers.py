@@ -59,7 +59,7 @@ class UpdateUserSerializer(UserSerializer):
 
 class ChangeUserPasswordSerializer(serializers.Serializer):
     password1 = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password])
+        write_only=True, required=True)
     password2 = serializers.CharField(write_only=True, required=True)
 
     # def validate(self, attrs):

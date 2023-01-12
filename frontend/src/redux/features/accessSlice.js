@@ -54,7 +54,7 @@ const accessSlice = createSlice({
         },
         handleFormModalCancel: (state, action) => {
             state.formValues = {};
-            state.formMode = "add";
+            // state.formMode = "add";
             state.formOpen = false;
         },
         handleFormModalCreate: (state, action) => {
