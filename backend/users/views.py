@@ -1,12 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-
-
+from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status, viewsets
-from .serializers import UserSerializer, CreateUserSerializer, UpdateUserSerializer, ListUserSerializer
+from .serializers import UserSerializer, CreateUserSerializer, UpdateUserSerializer, ListUserSerializer, ChangeUserPasswordSerializer
 from django.contrib.auth import get_user_model
 from config.permissions import CustomDjangoModelPermissions
 
@@ -51,9 +50,20 @@ class UserViewSet(viewsets.ModelViewSet):
             return CreateUserSerializer
         if self.action == "update":
             return UpdateUserSerializer
+        if self.action == "change_password":
+            return ChangeUserPasswordSerializer
 
         return super().get_serializer_class()
 
-    # def create(self, request, *args, **kwargs):
+    @action(detail=True, methods=['post'])
+    def change_password(self, request, pk=None):
+        user: User = self.get_object()
+        serializer = self.get_serializer(data=request.data)
 
-    #     return super().create(request, *args, **kwargs)
+        if serializer.is_valid():
+            user.set_password(serializer.validated_data['password1'])
+            user.save()
+            return Response({'status': 'password set'})
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)

@@ -48,7 +48,6 @@ class CreateUserSerializer(UserSerializer):
         user.groups.set(groups)
         user.user_permissions.set(user_permissions)
 
-
         return user
 
 
@@ -57,10 +56,37 @@ class UpdateUserSerializer(UserSerializer):
         exclude = ["password"]
         fields = None
 
-    # def perform_update(self, serializer):
-    #     # Hash password but passwords are not required
-    #     if ('password' in self.request.data):
-    #         password = make_password(self.request.data['password'])
-    #         serializer.save(password=password)
-    #     else:
-    #         serializer.save()
+
+class ChangeUserPasswordSerializer(serializers.Serializer):
+    password1 = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    # def validate(self, attrs):
+    #     if attrs['password1'] != attrs['password2']:
+    #         raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+    #     return attrs
+
+    def update(self, instance, validated_data):
+        # instance.password = validated_data.get('password', instance.password)
+
+        # if not validated_data['new_password']:
+        #       raise serializers.ValidationError({'new_password': 'not found'})
+
+        # if not validated_data['old_password']:
+        #       raise serializers.ValidationError({'old_password': 'not found'})
+
+        if validated_data['password1'] != validated_data['password2']:
+            raise serializers.ValidationError(
+                {'passwords': 'passwords do not match'})
+
+        if validated_data['password1'] == validated_data['password2']:
+            # instance.password = validated_data['new_password']
+            print(instance.password)
+            instance.set_password(validated_data['password1'])
+            print(instance.password)
+            instance.save()
+            return instance
+
+        return instance

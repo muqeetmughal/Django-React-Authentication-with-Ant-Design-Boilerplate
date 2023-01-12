@@ -45,21 +45,18 @@ export const ChangePasswordForm = () => {
     const { permissions_list, groups_list } = useSelector(state => state.access)
 
     const [form] = Form.useForm();
-    const [errors, setErrors] = useState({})
-
 
     const onFinish = (values) => {
 
         if (formMode === "change_password") {
-            api.post("/users/", values)
+            api.post("/users/change_password", values)
                 .then((resp) => {
 
-                    if (resp.status === 201) {
+                    if (resp.status === 200) {
 
                         form.resetFields()
                         dispatch(handleFormModalCancel())
 
-                        dispatch(fetchUsers())
                         message.success(resp.statusText)
                     } else {
                         console.log("err during create user", resp)
@@ -67,7 +64,6 @@ export const ChangePasswordForm = () => {
                 })
                 .catch((err) => {
 
-                    setErrors(err.response.data)
                     Promise.reject(err)
 
 
