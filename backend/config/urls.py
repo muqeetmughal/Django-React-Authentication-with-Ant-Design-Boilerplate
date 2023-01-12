@@ -12,7 +12,7 @@ from access.views import RoleViewSet, PermissionViewSet
 from config.views import MyTokenObtainPairView, CustomTokenRefreshView
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
-router.register(r'roles', RoleViewSet, basename='roles')
+router.register(r'groups', RoleViewSet, basename='roles')
 router.register(r'permissions', PermissionViewSet, basename='permissions')
 
 urlpatterns = [

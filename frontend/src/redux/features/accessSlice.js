@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "common/api";
 
 const initialState = {
-    roles_list: [],
+    groups_list: [],
     permissions_list: [],
 
     loading: true,
@@ -20,12 +20,12 @@ export const fetchPermissions = createAsyncThunk('access/fetchPermissions', asyn
     return response.data
 })
 
-export const fetchRoles = createAsyncThunk('access/fetchRoles', async (data, thunkAPI) => {
-    const response = await api.get("/roles/")
+export const fetchGroups = createAsyncThunk('access/fetchGroups', async (data, thunkAPI) => {
+    const response = await api.get("/groups/")
     return response.data
 })
-export const createRole = createAsyncThunk('access/createRole', async (data, thunkAPI) => {
-    const response = await api.post("/roles/", data)
+export const createGroup = createAsyncThunk('access/createGroup', async (data, thunkAPI) => {
+    const response = await api.post("/groups/", data)
     return response.data
 })
 
@@ -77,11 +77,11 @@ const accessSlice = createSlice({
             state.permissions_list = action.payload
             state.loading = false
         })
-        builder.addCase(fetchRoles.pending, (state, action) => {
+        builder.addCase(fetchGroups.pending, (state, action) => {
             state.loading = true
         })
-        builder.addCase(fetchRoles.fulfilled, (state, action) => {
-            state.roles_list = action.payload
+        builder.addCase(fetchGroups.fulfilled, (state, action) => {
+            state.groups_list = action.payload
             state.loading = false
         })
     },

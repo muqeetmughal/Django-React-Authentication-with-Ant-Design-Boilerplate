@@ -14,9 +14,9 @@ const navitems = [
         allowed_permissions: ["users.view_useraccount"],
     },
     {
-        key: "/roles",
+        key: "/groups",
         icon: <LockOutlined />,
-        label: "Roles",
+        label: "Groups",
         allowed_permissions: ["auth.view_group"],
     
     }

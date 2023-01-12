@@ -91,6 +91,11 @@ const setup = (store) => {
                 message.warning(err.response.data.detail + ", try login again")
 
             }
+            // if (err.response.status === 500) {
+            //     // dispatch(logOut())
+            //     message.error("500 Internal Server Error")
+
+            // }
 
             // const originalConfig = err.config;
             // if (originalConfig.url !== "/auth" && err.response) {

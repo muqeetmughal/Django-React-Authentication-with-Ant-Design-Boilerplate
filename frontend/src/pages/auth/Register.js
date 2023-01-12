@@ -6,9 +6,6 @@ import { useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 import AuthService from 'services/Auth.service'
 import OTPInput from "otp-input-react";
-import ButtonGroup from 'antd/lib/button/button-group'
-import "./register.css"
-
 const Register = () => {
 
     let access = useSelector(state => state.auth?.access)

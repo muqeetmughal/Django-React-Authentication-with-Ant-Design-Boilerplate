@@ -10,7 +10,6 @@ import { Routes, Route } from 'react-router';
 
 import MainLayout from 'layouts/MainLayout';
 import PublicLayout from 'layouts/PublicLayout';
-import Roles from 'pages/access/Roles';
 
 
 const Login = lazy(() => import("pages/auth/Login"))
@@ -18,11 +17,7 @@ const Register = lazy(() => import("pages/auth/Register"))
 
 const Welcome = lazy(() => import("pages/Welcome"))
 const Users = lazy(() => import("pages/users/Users"))
-const AddUser = lazy(() => import('pages/users/AddUser'))
-const ChangePassword = lazy(() => import('pages/users/ChangePassword'))
-const EditUser = lazy(() => import('pages/users/EditUser'))
-
-
+const Groups = lazy(() => import("pages/access/Groups"))
 const RoutesConfig = () => {
 
     // const [loading, setLoading] = useState(true)
@@ -63,13 +58,10 @@ const RoutesConfig = () => {
 
                     <Route path="users">
                         <Route path='' element={<Users />} />
-                        <Route path='add' element={<AddUser />} />
-                        <Route path='edit/:id' element={<EditUser />} />
-                        <Route path='change-password/:id' element={<ChangePassword />} />
                     </Route>
 
-                    <Route path="roles">
-                        <Route path='' element={<Roles />} />
+                    <Route path="groups">
+                        <Route path='' element={<Groups />} />
                     </Route>
 
 

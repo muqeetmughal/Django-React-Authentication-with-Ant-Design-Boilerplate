@@ -4,6 +4,7 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from .serializers import RoleSerializer, ListRoleSerializer, CreateRoleSerializer, PermissionSerializer
 from config.permissions import CustomDjangoModelPermissions
+from django.db.models import Q
 
 
 class RoleViewSet(viewsets.ModelViewSet):
@@ -33,6 +34,6 @@ class RoleViewSet(viewsets.ModelViewSet):
 
 
 class PermissionViewSet(viewsets.ModelViewSet):
-    queryset = Permission.objects.all()
+    queryset = Permission.objects.filter(~Q(content_type__model="contenttype") & ~Q(content_type__model="logentry") & ~Q(content_type__model="permission") & ~Q(content_type__model="session"))
     serializer_class = PermissionSerializer
     permission_classes = [permissions.IsAuthenticated]

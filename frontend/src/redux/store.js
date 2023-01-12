@@ -9,10 +9,10 @@ import appConfigs from 'common/appConfigs';
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
     theme: themeReducer,
+    auth: authReducer,
     users: usersReducer,
-    access: accessReducer
+    access: accessReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
   devTools: appConfigs.DEBUG || true
