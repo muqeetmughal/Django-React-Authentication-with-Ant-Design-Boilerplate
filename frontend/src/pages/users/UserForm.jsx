@@ -19,8 +19,6 @@ const UserFormModal = () => {
 
     useEffect(() => {
 
-        console.log("Modal rendered")
-
 
 
     }, [])
@@ -31,7 +29,7 @@ const UserFormModal = () => {
         <Modal
             title={`${toCapitalize(formMode)} User`}
             width={700}
-            open={formOpen}
+            open={formOpen && (formMode === "add" || formMode === "edit")}
             footer={null}
             maskClosable={true}
             destroyOnClose={true}
@@ -51,9 +49,9 @@ export const UserForm = () => {
     const dispatch = useDispatch()
     // const [formValues, setFormValues] = useState({})
 
-    const { selected, formOpen, formMode,  formValues } = useSelector(state => state.users)
+    const { selected, formOpen, formMode, formValues } = useSelector(state => state.users)
 
-    const { permissions_list, groups_list} = useSelector(state=>state.access)
+    const { permissions_list, groups_list } = useSelector(state => state.access)
 
     const [form] = Form.useForm();
     const [errors, setErrors] = useState({})
@@ -224,7 +222,7 @@ export const UserForm = () => {
 
                                     fieldNames={{ label: "name", value: "id" }}
                                 />
-                               
+
 
                             </Form.Item>
                         </Col>

@@ -1,16 +1,15 @@
 import { Button, Col, Input, message, Popconfirm, Row, Space, Table, Tag } from 'antd'
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { EditFilled, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined, LockOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditFilled, DeleteOutlined, CheckCircleOutlined, CloseCircleOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux'
-import { setFormOpen, setFormMode, setFormValues, setSelected, handleFormModalEdit, handleFormModalCreate, fetchUsers } from 'redux/features/usersSlice'
+import { handleFormModalEdit, handleFormModalCreate, fetchUsers, handleFormModalChangePassword } from 'redux/features/usersSlice'
 import api from 'common/api';
 import Guard from 'providers/Guard';
 import withAuthCheck from 'hoc/withAuthCheck';
-import RoleFormModal from 'pages/access/GroupForm';
 import UserFormModal from './UserForm';
 import { fetchGroups, fetchPermissions } from 'redux/features/accessSlice';
 import dayjs from 'dayjs';
+import ChangePasswordFormModal from './ChangePasswordForm';
 
 // import Guard from '../../../providers/Guard'
 // import withAuthCheck from '../../../hoc/withAuthCheck'
@@ -39,6 +38,11 @@ const Users = () => {
       console.log(err)
     })
 
+  }
+  const handleChangePassword = (key) => {
+    dispatch(handleFormModalChangePassword(key))
+
+    
   }
 
 
@@ -77,8 +81,8 @@ const Users = () => {
     {
       title: 'Groups',
       // dataIndex: 'groups',
-      render : (record) => {
-        return record.groups.map((group, index)=>{
+      render: (record) => {
+        return record.groups.map((group, index) => {
           return <Tag key={index}>{group.name}</Tag>
         })
       },
@@ -87,7 +91,7 @@ const Users = () => {
     {
       title: 'Last Login',
       key: 'last_login',
-      render : (record) => {
+      render: (record) => {
         return <Tag>{record.last_login ? dayjs(record.last_login).toString() : "None"}</Tag>
       },
     },
@@ -133,7 +137,7 @@ const Users = () => {
 
           <Guard allowedPermissions={["users.change_useraccount"]}>
 
-            <LockOutlined style={{ color: "green", fontSize: "12" }} />
+            <LockOutlined onClick={() => (handleChangePassword(record.id))} style={{ color: "green", fontSize: "12" }} />
 
           </Guard>
 
@@ -189,6 +193,7 @@ const Users = () => {
       />
 
       <UserFormModal />
+      <ChangePasswordFormModal />
 
     </>
   )

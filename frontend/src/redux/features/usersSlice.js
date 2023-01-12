@@ -46,8 +46,9 @@ const usersSlice = createSlice({
         },
         handleFormModalCancel: (state, action) => {
             state.formValues = {};
-            state.formMode = "add";
+            state.selected = null
             state.formOpen = false;
+            state.formMode = "add";
         },
         handleFormModalCreate: (state, action) => {
             state.formValues = {};
@@ -59,6 +60,12 @@ const usersSlice = createSlice({
             state.formMode = "edit";
             state.formOpen = true;
         },
+        handleFormModalChangePassword: (state, action) => {
+            state.formValues = {};
+            state.selected = action.payload;
+            state.formMode = "change_password";
+            state.formOpen = true;
+        }
     },
     extraReducers: (builder) => {
 
@@ -74,5 +81,5 @@ const usersSlice = createSlice({
 })
 
 
-export const { setFormOpen, setFormMode, setFormValues, setSelected, handleFormModalCancel, handleFormModalCreate, handleFormModalEdit } = usersSlice.actions
+export const { setFormOpen, setFormMode, setFormValues, setSelected, handleFormModalCancel, handleFormModalCreate, handleFormModalEdit,handleFormModalChangePassword } = usersSlice.actions
 export default usersSlice.reducer
