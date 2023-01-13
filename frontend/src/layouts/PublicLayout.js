@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { Layout, Row, Col } from 'antd';
 import React from 'react';
 import TopHeader from "./TopHeader";
@@ -12,14 +12,20 @@ const { Content, Footer } = Layout;
 const PublicLayout = () => {
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     const user = useSelector(selectCurrentUser)
 
-    // React.useEffect(() => {
-    //     if (user) {
-    //         navigate(ENTRY_ROUTE)
-    //     }
-    // }, [navigate, user])
+    React.useEffect(() => {
+        // console.log("Public Layout Rendered")
+        if (user) {
+            if (location.state?.from) {
+                navigate(location.state.from)
+            } else {
+                navigate(ENTRY_ROUTE)
+            }
+        }
+    }, [navigate, location, user])
 
 
 
