@@ -29,11 +29,6 @@ const TopHeader = () => {
 
     function handleLogout() {
         dispatch(logOut());
-        AuthService.logout()
-        message.success("You have been logged out successfully!")
-            .then(resp => {
-            })
-
     }
 
     const styles = {

@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 import appConfigs from 'common/appConfigs';
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoginCredentials, logOut, setLoading } from 'redux/features/authSlice'
 // import AuthService from '../services/Auth.service';
@@ -17,6 +17,7 @@ import { fetchPermissions } from 'redux/features/accessSlice';
 const Login = () => {
 
     const navigate = useNavigate()
+    const location = useLocation()
     // const [loading, setLoading] = useState(false)
     const { loading } = useSelector(state => state.auth)
     const dispatch = useDispatch()
@@ -28,7 +29,14 @@ const Login = () => {
         api.post("/api/token/", values).then((resp) => {
             // dispatch(fetchPermissions())
             dispatch(setLoginCredentials({ ...resp.data }))
-            navigate(ENTRY_ROUTE)
+
+
+            if (location.state?.from) {
+                navigate(location.state.from)
+            }else{
+                navigate(ENTRY_ROUTE)
+            }
+
             message.success("Successfully Logged in")
         }).catch(err => {
 

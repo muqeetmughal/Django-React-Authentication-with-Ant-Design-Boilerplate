@@ -15,11 +15,11 @@ const PublicLayout = () => {
 
     const user = useSelector(selectCurrentUser)
 
-    React.useEffect(() => {
-        if (user) {
-            navigate(ENTRY_ROUTE)
-        }
-    }, [navigate, user])
+    // React.useEffect(() => {
+    //     if (user) {
+    //         navigate(ENTRY_ROUTE)
+    //     }
+    // }, [navigate, user])
 
 
 

@@ -16,10 +16,12 @@ const MainLayout = () => {
     const { access } = useSelector(state => state.auth)
 
 
-    useEffect(() => {
-        console.log("Main Layout rendered")
-        // dispatch(fetchPermissions())
-    }, [])
+
+
+    // useEffect(() => {
+    //     console.log("Main Layout rendered", location)
+    //     // dispatch(fetchPermissions())
+    // }, [location])
 
 
 
@@ -53,7 +55,7 @@ const MainLayout = () => {
     if (access) {
         return mainLayout
     } else {
-        return <Navigate to="/auth/login" state={{ from: location }} />
+        return <Navigate to="/auth/login" replace state={{ from: location }} />
     }
 
 }

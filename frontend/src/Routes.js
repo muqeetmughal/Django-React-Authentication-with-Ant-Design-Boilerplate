@@ -44,7 +44,7 @@ const RoutesConfig = () => {
             <Routes>
                 {/* Public Routes */}
 
-                <Route path='' element={<Navigate to={ENTRY_ROUTE} />} />
+                {/* <Route path='' element={<Navigate to={ENTRY_ROUTE} />} /> */}
                 <Route path="/auth" element={<PublicLayout />}>
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
